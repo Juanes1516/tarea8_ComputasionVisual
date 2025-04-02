@@ -27,7 +27,6 @@ bool box::hit(const ray& r, interval ray_t, hit_record& rec) const {
         auto t0 = (box_min[a] - r.origin()[a]) * invD;
         auto t1 = (box_max[a] - r.origin()[a]) * invD;
 
-        // Asegurarse de que t0 <= t1
         if (invD < 0.0f)
             std::swap(t0, t1);
 
@@ -46,11 +45,11 @@ bool box::hit(const ray& r, interval ray_t, hit_record& rec) const {
     vec3 outward_normal;
     auto min_dist = std::numeric_limits<double>::infinity();
 
-    // Revisamos cada cara para encontrar la m·s cercana al punto de intersecciÛn
+    // Reviso cada cara para encontrar la m√°s cercana al punto de intersecci√≥n
     for (int i = 0; i < 3; i++) {
         double dist;
 
-        // Cara con coordenada mÌnima en este eje
+        // Cara con coordenada m√≠nima en este eje
         dist = std::abs(rec.p[i] - box_min[i]);
         if (dist < min_dist) {
             min_dist = dist;
@@ -58,7 +57,7 @@ bool box::hit(const ray& r, interval ray_t, hit_record& rec) const {
             outward_normal[i] = -1;
         }
 
-        // Cara con coordenada m·xima en este eje
+        // Cara con coordenada m√°xima en este eje
         dist = std::abs(rec.p[i] - box_max[i]);
         if (dist < min_dist) {
             min_dist = dist;
